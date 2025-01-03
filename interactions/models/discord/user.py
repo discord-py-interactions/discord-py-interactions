@@ -239,6 +239,16 @@ class ClientUser(User):
         """The guilds the user is in."""
         return list(filter(None, (self._client.cache.get_guild(guild_id) for guild_id in self._guild_ids)))
 
+    @property
+    def guild_count(self) -> int:
+        """
+        Returns the number of guilds the bot is in.
+
+        This function is faster than using `len(client_user.guilds)` as it does not require using the cache.
+        As such, this is preferred when you only need the count of guilds.
+        """
+        return len(self._guild_ids or ())
+
     async def edit(
         self,
         *,

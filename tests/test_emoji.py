@@ -34,7 +34,7 @@ def test_emoji_formatting() -> None:
 
 def test_emoji_processing() -> None:
     raw_sample = "<:sparklesnek:910496037708374016>"
-    dict_sample = {"id": 910496037708374016, "name": "sparklesnek", "animated": False}
+    dict_sample = {"id": 910496037708374016, "name": "sparklesnek", "animated": False, "available": True}
     unicode_sample = "👍"
     target = "sparklesnek:910496037708374016"
 
@@ -48,7 +48,7 @@ def test_emoji_processing() -> None:
 
     assert isinstance(raw_emoji, dict) and raw_emoji == dict_sample
     assert isinstance(dict_emoji, dict) and dict_emoji == dict_sample
-    assert isinstance(unicode_emoji, dict) and unicode_emoji == {"name": "👍", "animated": False}
+    assert isinstance(unicode_emoji, dict) and unicode_emoji == {"name": "👍", "animated": False, "available": True}
 
     from_str = PartialEmoji.from_str(raw_sample)
     assert from_str.req_format == target

@@ -535,6 +535,16 @@ class Client(
         return self.user.guilds
 
     @property
+    def guild_count(self) -> int:
+        """
+        Returns the number of guilds the bot is in.
+
+        This function is faster than using `len(client.guilds)` as it does not require using the cache.
+        As such, this is preferred when you only need the count of guilds.
+        """
+        return self.user.guild_count
+
+    @property
     def status(self) -> Status:
         """
         Get the status of the bot.

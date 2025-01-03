@@ -76,7 +76,7 @@ class DebugExtension(DebugExec, DebugAppCMD, DebugExts, Extension):
 
         e.add_field("Loaded Exts", ", ".join(self.bot.ext))
 
-        e.add_field("Guilds", str(len(self.bot.guilds)))
+        e.add_field("Guilds", str(self.bot.guild_count))
 
         await ctx.send(embeds=[e])
 

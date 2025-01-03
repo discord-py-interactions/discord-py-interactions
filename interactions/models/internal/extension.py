@@ -47,7 +47,7 @@ class Extension:
 
     """
 
-    bot: "Client"
+    _bot: "Client"
     name: str
     extension_name: str
     description: str
@@ -77,8 +77,6 @@ class Extension:
     def __new__(cls, bot: "Client", *args, **kwargs) -> "Extension":
         instance = super().__new__(cls)
         instance.bot = bot
-        instance.client = bot
-
         instance.name = cls.__name__
 
         if instance.name in bot.ext:
@@ -139,6 +137,22 @@ class Extension:
     @property
     def __name__(self) -> str:
         return self.name
+
+    @property
+    def bot(self) -> "Client":
+        return self._bot
+
+    @bot.setter
+    def bot(self, value: "Client") -> None:
+        self._bot = value
+
+    @property
+    def client(self) -> "Client":
+        return self._bot
+
+    @client.setter
+    def client(self, value: "Client") -> None:
+        self._bot = value
 
     @property
     def commands(self) -> List["BaseCommand"]:

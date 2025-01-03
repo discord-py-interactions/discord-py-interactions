@@ -642,7 +642,7 @@ class GlobalCache:
 
         """
         guild_id = to_snowflake(data["id"])
-        guild: Guild = self.guild_cache.get(guild_id)
+        guild: Guild | None = self.guild_cache.get(guild_id)
         if guild is None:
             guild = Guild.from_dict(data, self._client)
             self.guild_cache[guild_id] = guild
@@ -914,7 +914,7 @@ class GlobalCache:
         """
         return self.emoji_cache.get(to_optional_snowflake(emoji_id)) if self.emoji_cache is not None else None
 
-    def place_emoji_data(self, guild_id: "Snowflake_Type", data: discord_typings.EmojiData) -> "CustomEmoji":
+    def place_emoji_data(self, guild_id: "Snowflake_Type | None", data: discord_typings.EmojiData) -> "CustomEmoji":
         """
         Take json data representing an emoji, process it, and cache it. This cache is disabled by default, start your bot with `Client(enable_emoji_cache=True)` to enable it.
 
@@ -929,7 +929,7 @@ class GlobalCache:
         with suppress(KeyError):
             del data["guild_id"]  # discord sometimes packages a guild_id - this will cause an exception
 
-        emoji = CustomEmoji.from_dict(data, self._client, to_snowflake(guild_id))
+        emoji = CustomEmoji.from_dict(data, self._client, to_optional_snowflake(guild_id))
         if self.emoji_cache is not None:
             self.emoji_cache[emoji.id] = emoji
 
