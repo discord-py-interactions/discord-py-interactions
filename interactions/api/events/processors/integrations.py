@@ -23,7 +23,7 @@ class IntegrationEvents(EventMixinTemplate):
         command_id = to_snowflake(event.data["id"])
         application_id = to_snowflake(event.data["application_id"])
 
-        if guild := self.get_guild(guild_id):
+        if guild := self.cache.get_guild(guild_id):
             if guild.permissions:
                 if command_id not in guild.command_permissions:
                     guild.command_permissions[command_id] = CommandPermissions(

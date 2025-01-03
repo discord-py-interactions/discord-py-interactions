@@ -13,7 +13,7 @@ __all__ = ("VoiceEvents",)
 class VoiceEvents(EventMixinTemplate):
     @Processor.define()
     async def _on_raw_voice_state_update(self, event: "RawGatewayEvent") -> None:
-        if str(event.data["user_id"]) == str(self.user.id):
+        if str(event.data["user_id"]) == str(self._user.id):
             # User is the bot itself
             before = copy.copy(self.cache.get_bot_voice_state(event.data["guild_id"])) or None
             after = await self.cache.place_voice_state_data(event.data, update_cache=False)

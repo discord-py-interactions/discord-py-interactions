@@ -1,6 +1,7 @@
 import asyncio
 import functools
 import inspect
+import logging
 from typing import TYPE_CHECKING, Callable, Coroutine
 
 from interactions.client.const import Absent, MISSING, AsyncCallable
@@ -40,7 +41,9 @@ class EventMixinTemplate:
 
     cache: "GlobalCache"
     dispatch: Callable[["BaseEvent"], None]
+    fetch_members: bool
     _init_interactions: Callable[[], Coroutine]
+    logger: logging.Logger
     synchronise_interactions: Callable[[], Coroutine]
     _user: ClientUser
     _guild_event: asyncio.Event
